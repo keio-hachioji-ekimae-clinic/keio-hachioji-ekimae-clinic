@@ -62,15 +62,7 @@
   </div>
 </section>
 
-<div class="notice-card">
-  <a class="notice-box" href="notice.html">
-    <span class="notice-icon">!</span>
-    <div>
-      <h3>夏期休診のお知らせ</h3>
-      <p>8月13日（木）〜8月23日（日）まで休診いたします。詳しくはお知らせページをご覧ください。</p>
-    </div>
-  </a>
-</div>
+<div class="notice-card" id="topNoticeCard"></div>
 
 <section>
   <div class="wrap">
@@ -147,6 +139,31 @@
   </div>
 </footer>
 
+<script>const NOTICES_JSON_PATH = 'data/notices.json';</script>
 <script src="js/main.js"></script>
+<script>
+  fetch('data/notices.json?_=' + Date.now())
+    .then(res => res.json())
+    .then(notices => {
+      const card = document.getElementById('topNoticeCard');
+      if(!notices || notices.length === 0){ return; }
+      notices.sort((a,b) => new Date(b.date) - new Date(a.date));
+      const top = notices.find(n => n.urgent) || notices[0];
+      const div = document.createElement('div');
+      div.textContent = top.title;
+      const titleSafe = div.innerHTML;
+      div.textContent = top.body;
+      const bodySafe = div.innerHTML;
+      card.innerHTML = `
+        <a class="notice-box" href="notice.html">
+          <span class="notice-icon">!</span>
+          <div>
+            <h3>${titleSafe}</h3>
+            <p>${bodySafe}</p>
+          </div>
+        </a>`;
+    })
+    .catch(() => {});
+</script>
 </body>
 </html>

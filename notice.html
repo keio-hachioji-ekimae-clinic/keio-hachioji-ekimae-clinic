@@ -62,19 +62,9 @@
 
 <section class="compact">
   <div class="wrap">
-    <div class="notice-list">
-      <div class="notice-item urgent">
-        <div class="n-date">2026.07.01 掲載</div>
-        <h3>夏期休診のお知らせ</h3>
-        <p>8月13日（木）〜8月23日（日）まで休診になります。宜しくお願い申し上げます。</p>
-      </div>
-      <div class="notice-item">
-        <div class="n-date">2026.04.01 掲載</div>
-        <h3>明細書の無料発行について</h3>
-        <p>当院では、領収書発行の際に個別の診療報酬の算定項目が分かる明細書を無料で発行しております。</p>
-      </div>
+    <div class="notice-list" id="noticeList">
+      <p style="font-size:13px; color:var(--text-muted);">読み込み中…</p>
     </div>
-    <p class="note-tag">※ このページの内容は、実装時にご担当者様が更新できるフォームと連動させる想定です</p>
   </div>
 </section>
 
@@ -99,6 +89,7 @@
   </div>
 </footer>
 
+<script>const NOTICES_JSON_PATH = 'data/notices.json';</script>
 <script src="js/main.js"></script>
 </body>
 </html>
