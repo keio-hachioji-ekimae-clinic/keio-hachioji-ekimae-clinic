@@ -18,6 +18,6 @@
     "date": "2026-07-20",
     "title": "お知らせテスト",
     "body": "test",
-    "urgent": false
+    "urgent": true
   }
 ]
