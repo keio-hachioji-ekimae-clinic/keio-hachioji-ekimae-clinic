@@ -76,6 +76,8 @@ nav.primary-nav a.active{color:var(--primary); font-weight:700; background:var(-
 .eyebrow{font-size:12px; font-weight:700; color:var(--primary); letter-spacing:.12em; text-transform:uppercase;}
 .hero h1{font-size:26px; margin:10px 0 6px; line-height:1.5;}
 .hero p.lead{color:var(--text-muted); font-size:14.5px; margin:0 0 20px;}
+.hours-note{font-size:13px; color:var(--text-muted); margin:0 0 20px;}
+.hours-note a{color:var(--primary); font-weight:700;}
 .status-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:20px;}
 .status-pill{display:inline-flex; align-items:center; gap:7px; padding:8px 14px; border-radius:99px; font-size:13px; font-weight:700; font-family:'Zen Kaku Gothic New',sans-serif;}
 .status-pill.open{background:#E7F1E9; color:#1F4B3F;}
