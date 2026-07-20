@@ -160,6 +160,7 @@ table.hours th.today, table.hours td.today{background:var(--primary-soft); borde
 .route-item:last-child{border-bottom:none;}
 .route-item b{color:var(--primary-dark); text-align:right;}
 .map-placeholder{background:var(--bg-tint); border:1px dashed var(--border); border-radius:12px; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:12.5px; text-align:center; padding:20px;}
+.map-embed{background:var(--bg-tint); border:1px solid var(--border); border-radius:12px; aspect-ratio:4/3; overflow:hidden;}
 
 /* Links */
 .links-grid{display:grid; gap:8px; grid-template-columns:1fr;}
