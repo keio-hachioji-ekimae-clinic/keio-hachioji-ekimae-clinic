@@ -88,4 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#hoursTable [data-day]').forEach(el => {
     if(parseInt(el.dataset.day) === today) el.classList.add('today');
   });
+
+  // 開業年数の自動計算（毎年7月1日にカウントアップ）
+  // 平成7年(1995年)7月開業。7月1日を境に「◯年目」の表示が切り替わる。
+  const annivEls = document.querySelectorAll('.anniv-year');
+  if(annivEls.length > 0){
+    const now = new Date();
+    const OPEN_YEAR = 1995;
+    let n = now.getFullYear() - OPEN_YEAR;
+    if(now.getMonth() >= 6) n += 1; // getMonth()は0始まりなので6=7月
+    annivEls.forEach(el => el.textContent = n);
+  }
 });
