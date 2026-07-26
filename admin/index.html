@@ -155,8 +155,10 @@
           clearStatus();
           resetForm();
           loadNotices();
-        } else {
+        } else if(res.error === 'invalid_password'){
           showLockError('パスワードが正しくありません。');
+        } else {
+          showLockError('エラーが発生しました：' + (res.error || '不明なエラー') + '（GAS側の再デプロイが反映されていない可能性があります）');
         }
       })
       .catch(() => {
