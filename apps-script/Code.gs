@@ -22,6 +22,11 @@ function doPost(e) {
       return jsonResponse({ success: false, error: 'invalid_password' });
     }
 
+    // ログイン時のパスワード確認のみの場合はここで終了（GitHubへの通信は行わない）
+    if (payload.action === 'verify') {
+      return jsonResponse({ success: true });
+    }
+
     var current = getCurrentNotices(props);
     var notices = current.notices;
     var sha = current.sha;

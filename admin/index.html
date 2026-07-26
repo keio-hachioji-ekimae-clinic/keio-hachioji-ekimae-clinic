@@ -68,7 +68,7 @@
         <input type="password" id="passwordInput" placeholder="パスワード">
       </div>
       <div id="lockError" class="status-msg err"></div>
-      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="unlock()">ログイン</button>
+      <button class="btn btn-primary" id="loginBtn" style="width:100%; justify-content:center;" onclick="unlock()">ログイン</button>
     </div>
   </div>
 
@@ -135,13 +135,37 @@
       showLockError('パスワードを入力してください。');
       return;
     }
-    sessionPassword = pw;
-    sessionStorage.setItem('admin_pw', pw);
-    document.getElementById('lockScreen').style.display = 'none';
-    document.getElementById('adminScreen').style.display = 'block';
-    clearStatus();
-    resetForm();
-    loadNotices();
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.disabled = true;
+    loginBtn.textContent = '確認中…';
+    showLockError('');
+
+    fetch(GAS_WEB_APP_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({ action: 'verify', password: pw })
+    })
+      .then(res => res.json())
+      .then(res => {
+        if(res.success){
+          sessionPassword = pw;
+          sessionStorage.setItem('admin_pw', pw);
+          document.getElementById('lockScreen').style.display = 'none';
+          document.getElementById('adminScreen').style.display = 'block';
+          clearStatus();
+          resetForm();
+          loadNotices();
+        } else {
+          showLockError('パスワードが正しくありません。');
+        }
+      })
+      .catch(() => {
+        showLockError('通信エラーが発生しました。時間をおいて再度お試しください。');
+      })
+      .finally(() => {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'ログイン';
+      });
   }
 
   function clearStatus(){
@@ -173,7 +197,11 @@
   function showLockError(msg){
     const el = document.getElementById('lockError');
     el.textContent = msg;
-    el.classList.add('show');
+    if(msg){
+      el.classList.add('show');
+    } else {
+      el.classList.remove('show');
+    }
   }
 
   function escapeHtml(str){
