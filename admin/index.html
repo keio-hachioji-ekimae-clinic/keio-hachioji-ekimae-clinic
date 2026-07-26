@@ -83,8 +83,6 @@
       <button class="btn btn-outline btn-logout" onclick="logout()">ログアウト</button>
     </div>
 
-    <div id="statusMsg" class="status-msg"></div>
-
     <div class="card">
       <p class="section-title" id="formTitle">＋ 新規お知らせを追加</p>
       <input type="hidden" id="editId" value="">
@@ -109,6 +107,8 @@
         <button class="btn btn-outline" id="cancelEditBtn" style="display:none;" onclick="resetForm()">編集をやめる</button>
       </div>
     </div>
+
+    <div id="statusMsg" class="status-msg"></div>
 
     <p class="section-title">現在のお知らせ一覧</p>
     <div id="noticeAdminList">
@@ -139,7 +139,15 @@
     sessionStorage.setItem('admin_pw', pw);
     document.getElementById('lockScreen').style.display = 'none';
     document.getElementById('adminScreen').style.display = 'block';
+    clearStatus();
+    resetForm();
     loadNotices();
+  }
+
+  function clearStatus(){
+    const el = document.getElementById('statusMsg');
+    el.textContent = '';
+    el.className = 'status-msg';
   }
 
   function logout(){
@@ -150,6 +158,7 @@
     document.getElementById('lockError').classList.remove('show');
     document.getElementById('adminScreen').style.display = 'none';
     document.getElementById('lockScreen').style.display = 'block';
+    clearStatus();
     resetForm();
   }
 
