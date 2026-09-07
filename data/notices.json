@@ -26,7 +26,7 @@
     "date": "2026-09-07",
     "title": "インフルエンザ予防接種の開始について",
     "body": "10月2日(金)よりインフルエンザ予防接種を開始いたします。詳細は当院までお問い合わせください。",
-    "urgent": false,
-    "showTop": true
+    "urgent": true,
+    "showTop": false
   }
 ]
