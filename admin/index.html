@@ -44,6 +44,8 @@
   .list-item{border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px; background:#fff;}
   .list-item.urgent{border-color:#E5C6BE; background:#FFFBFA;}
   .list-item .li-date{font-size:11px; color:var(--text-muted); font-family:'Zen Kaku Gothic New',sans-serif;}
+  .li-badge{display:inline-block; font-size:10.5px; background:var(--primary-soft); color:var(--primary-dark); padding:2px 8px; border-radius:99px; margin-left:6px; font-weight:700;}
+  .li-badge.urgent{background:var(--urgent-bg); color:var(--urgent);}
   .list-item h4{margin:4px 0 4px; font-size:14.5px;}
   .list-item p{margin:0 0 10px; font-size:13px; color:var(--text-muted); white-space:pre-wrap;}
   .li-actions{display:flex; gap:8px;}
@@ -99,9 +101,14 @@
         <input type="date" id="fieldDate">
       </div>
       <div class="field field-check">
+        <input type="checkbox" id="fieldShowTop">
+        <label style="margin:0;" for="fieldShowTop">トップページにも表示する（通常のお知らせ）</label>
+      </div>
+      <div class="field field-check">
         <input type="checkbox" id="fieldUrgent">
         <label style="margin:0;" for="fieldUrgent">トップページの目立つ位置にも表示する（休診など重要なお知らせ）</label>
       </div>
+      <p style="font-size:12px; color:var(--text-muted); margin:-6px 0 0;">※トップページには最大3件まで表示されます。「目立つ位置」のお知らせが優先され、残りの枠を「通常表示」のお知らせで埋めます。</p>
       <div class="btn-row">
         <button class="btn btn-primary" id="submitBtn" onclick="submitNotice()">保存する</button>
         <button class="btn btn-outline" id="cancelEditBtn" style="display:none;" onclick="resetForm()">編集をやめる</button>
@@ -229,7 +236,7 @@
     }
     el.innerHTML = sorted.map(n => `
       <div class="list-item${n.urgent ? ' urgent' : ''}">
-        <div class="li-date">${escapeHtml(n.date)}</div>
+        <div class="li-date">${escapeHtml(n.date)}${n.urgent ? ' <span class="li-badge urgent">トップ表示（重要）</span>' : (n.showTop ? ' <span class="li-badge">トップ表示</span>' : '')}</div>
         <h4>${escapeHtml(n.title)}</h4>
         <p>${escapeHtml(n.body)}</p>
         <div class="li-actions">
@@ -248,6 +255,7 @@
     document.getElementById('fieldBody').value = n.body;
     document.getElementById('fieldDate').value = n.date;
     document.getElementById('fieldUrgent').checked = !!n.urgent;
+    document.getElementById('fieldShowTop').checked = !!n.showTop;
     document.getElementById('formTitle').textContent = '編集中：' + n.title;
     document.getElementById('submitBtn').textContent = '更新する';
     document.getElementById('cancelEditBtn').style.display = 'inline-flex';
@@ -260,6 +268,7 @@
     document.getElementById('fieldBody').value = '';
     document.getElementById('fieldDate').value = '';
     document.getElementById('fieldUrgent').checked = false;
+    document.getElementById('fieldShowTop').checked = false;
     document.getElementById('formTitle').textContent = '＋ 新規お知らせを追加';
     document.getElementById('submitBtn').textContent = '保存する';
     document.getElementById('cancelEditBtn').style.display = 'none';
@@ -285,6 +294,7 @@
     const body = document.getElementById('fieldBody').value.trim();
     const date = document.getElementById('fieldDate').value;
     const urgent = document.getElementById('fieldUrgent').checked;
+    const showTop = document.getElementById('fieldShowTop').checked;
 
     if(!title || !body || !date){
       showStatus('タイトル・本文・掲載日をすべて入力してください。', false);
@@ -295,7 +305,7 @@
       password: sessionPassword,
       action: id ? 'update' : 'create',
       id: id || undefined,
-      title, body, date, urgent
+      title, body, date, urgent, showTop
     };
 
     showStatus('保存しています…', true);
