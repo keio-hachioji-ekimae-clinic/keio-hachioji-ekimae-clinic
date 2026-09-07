@@ -92,7 +92,11 @@ nav.primary-nav a.active{color:var(--primary); font-weight:700; background:var(-
 
 /* Notice */
 .notice-card{max-width:var(--max); margin:0 auto 8px; padding:0 20px;}
+.notice-list-home{display:flex; flex-direction:column; gap:10px;}
 .notice-box{background:var(--urgent-bg); border:1px solid #E5C6BE; border-radius:var(--radius); padding:18px 20px; display:flex; gap:12px; align-items:flex-start;}
+.notice-box.plain{background:#fff; border-color:var(--border);}
+.notice-box.plain h3{color:var(--primary-dark);}
+.notice-box.plain p{color:var(--text-muted);}
 .notice-box.static{cursor:default;}
 a.notice-box{text-decoration:none; transition:box-shadow .15s;}
 a.notice-box:hover{box-shadow:0 2px 10px rgba(162,59,59,.12);}

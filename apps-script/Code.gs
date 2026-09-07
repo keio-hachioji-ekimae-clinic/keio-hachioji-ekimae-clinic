@@ -37,7 +37,8 @@ function doPost(e) {
         date: payload.date,
         title: payload.title,
         body: payload.body,
-        urgent: !!payload.urgent
+        urgent: !!payload.urgent,
+        showTop: !!payload.showTop
       });
     } else if (payload.action === 'update') {
       var idx = findIndexById(notices, payload.id);
@@ -47,7 +48,8 @@ function doPost(e) {
         date: payload.date,
         title: payload.title,
         body: payload.body,
-        urgent: !!payload.urgent
+        urgent: !!payload.urgent,
+        showTop: !!payload.showTop
       };
     } else if (payload.action === 'delete') {
       var idx2 = findIndexById(notices, payload.id);

@@ -3,160 +3,357 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>京王八王子駅前診療所｜内科・リウマチ科</title>
+<meta name="robots" content="noindex, nofollow">
+<title>お知らせ管理｜京王八王子駅前診療所</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  body{background:var(--bg-tint);}
+  .admin-wrap{max-width:640px; margin:0 auto; padding:32px 20px 60px;}
+  .admin-head{margin-bottom:22px;}
+  .admin-head-row{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .btn-logout{flex-shrink:0;}
+  .admin-footer{display:flex; justify-content:flex-end; margin-top:18px;}
+  .admin-head h1{font-size:20px; margin:0 0 4px;}
+  .admin-head p{font-size:12.5px; color:var(--text-muted); margin:0;}
+  .admin-badge{display:inline-block; font-size:11px; font-family:'Zen Kaku Gothic New',sans-serif; font-weight:700; background:var(--primary); color:#fff; padding:3px 10px; border-radius:99px; margin-bottom:10px;}
+
+  .card{background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:20px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:12.5px; font-weight:700; color:var(--text-muted); margin-bottom:5px; font-family:'Zen Kaku Gothic New',sans-serif;}
+  .field input[type=text], .field input[type=date], .field input[type=password], .field textarea{
+    width:100%; border:1px solid var(--border); border-radius:8px; padding:10px 12px; font-size:14px;
+    font-family:'Noto Sans JP',sans-serif; color:var(--text); background:#fff;
+  }
+  .field textarea{min-height:90px; resize:vertical;}
+  .field-check{display:flex; align-items:center; gap:8px; font-size:13.5px;}
+
+  .btn-row{display:flex; gap:10px; margin-top:18px;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:10px; font-size:13.5px; font-weight:700; border:1px solid transparent; cursor:pointer; font-family:'Zen Kaku Gothic New',sans-serif;}
+  .btn-primary{background:var(--primary); color:#fff;}
+  .btn-outline{background:#fff; color:var(--primary-dark); border-color:var(--border);}
+  .btn-danger{background:#fff; color:var(--urgent); border-color:#E5C6BE;}
+  .btn:disabled{opacity:.5; cursor:not-allowed;}
+
+  .status-msg{font-size:13px; padding:10px 14px; border-radius:8px; margin-bottom:16px; display:none;}
+  .status-msg.show{display:block;}
+  .status-msg.ok{background:#E7F1E9; color:var(--primary-dark);}
+  .status-msg.err{background:var(--urgent-bg); color:var(--urgent);}
+
+  .list-item{border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px; background:#fff;}
+  .list-item.urgent{border-color:#E5C6BE; background:#FFFBFA;}
+  .list-item .li-date{font-size:11px; color:var(--text-muted); font-family:'Zen Kaku Gothic New',sans-serif;}
+  .li-badge{display:inline-block; font-size:10.5px; background:var(--primary-soft); color:var(--primary-dark); padding:2px 8px; border-radius:99px; margin-left:6px; font-weight:700;}
+  .li-badge.urgent{background:var(--urgent-bg); color:var(--urgent);}
+  .list-item h4{margin:4px 0 4px; font-size:14.5px;}
+  .list-item p{margin:0 0 10px; font-size:13px; color:var(--text-muted); white-space:pre-wrap;}
+  .li-actions{display:flex; gap:8px;}
+  .li-actions button{font-size:12px; padding:6px 12px; border-radius:7px; border:1px solid var(--border); background:#fff; cursor:pointer; font-family:'Zen Kaku Gothic New',sans-serif;}
+  .li-actions button.edit{color:var(--primary-dark);}
+  .li-actions button.del{color:var(--urgent); border-color:#E5C6BE;}
+
+  .section-title{font-size:14px; font-weight:700; margin:0 0 12px; font-family:'Zen Kaku Gothic New',sans-serif; color:var(--primary-dark);}
+  .lock-screen{max-width:360px; margin:80px auto; text-align:center;}
+</style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-top">
-    <a class="brand" href="index.html">
-      <span class="brand-mark"><img src="assets/logo.jpg" alt="京王八王子駅前診療所 ロゴ"></span>
-      <span class="brand-text">
-        <p class="brand-name">京王八王子駅前診療所</p>
-        <span class="brand-sub">内科・リウマチ科</span>
-      </span>
-    </a>
-    <div class="header-actions">
-      <a class="tel-btn" href="tel:042-645-8228">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"/></svg>
-        042-645-8228
-      </a>
-      <button class="menu-btn" id="menuBtn" aria-label="メニュー"><span></span><span></span><span></span></button>
+<div class="admin-wrap">
+
+  <!-- パスワード入力画面 -->
+  <div id="lockScreen" class="lock-screen">
+    <div class="admin-badge">管理ページ</div>
+    <div class="card" style="text-align:left;">
+      <p class="section-title">パスワードを入力してください</p>
+      <div class="field">
+        <input type="password" id="passwordInput" placeholder="パスワード">
+      </div>
+      <div id="lockError" class="status-msg err"></div>
+      <button class="btn btn-primary" id="loginBtn" style="width:100%; justify-content:center;" onclick="unlock()">ログイン</button>
     </div>
   </div>
-  <nav class="primary-nav" id="primaryNav">
-    <ul>
-      <li><a href="index.html" class="active">ホーム</a></li>
-      <li><a href="about.html">ご案内</a></li>
-      <li><a href="hours.html">診療時間</a></li>
-      <li><a href="staff.html">院長ご挨拶</a></li>
-      <li><a href="access.html">所在地</a></li>
-      <li><a href="notice.html">お知らせ</a></li>
-      <li><a href="links.html">リンク集</a></li>
-    </ul>
-  </nav>
-</header>
 
-<section class="hero">
-  <div class="hero-inner">
-    <span class="eyebrow">京王八王子駅より徒歩1分</span>
-    <h1>内科・リウマチ科の疾患診療</h1>
-    <p class="lead">平成7年の開業から、地域のみなさまとともに<span class="anniv-year">30</span>年目を迎えました。</p>
+  <!-- 管理画面本体（ログイン後に表示） -->
+  <div id="adminScreen" style="display:none;">
+    <div class="admin-head admin-head-row">
+      <div>
+        <div class="admin-badge">管理ページ</div>
+        <h1>お知らせ管理</h1>
+        <p>京王八王子駅前診療所　お知らせの追加・編集・削除ができます</p>
+      </div>
+      <button class="btn btn-outline btn-logout" onclick="logout()">ログアウト</button>
+    </div>
 
-    <p class="hours-note">診療時間は月火水金 9:00〜13:00 / 16:00〜18:00、土 9:00〜13:00（<a href="hours.html">詳しい診療時間はこちら</a>）</p>
+    <div class="card">
+      <p class="section-title" id="formTitle">＋ 新規お知らせを追加</p>
+      <input type="hidden" id="editId" value="">
+      <div class="field">
+        <label>タイトル</label>
+        <input type="text" id="fieldTitle" placeholder="例：夏期休診のお知らせ">
+      </div>
+      <div class="field">
+        <label>本文</label>
+        <textarea id="fieldBody" placeholder="例：8月13日（木）〜8月23日（日）まで休診になります。"></textarea>
+      </div>
+      <div class="field">
+        <label>掲載日</label>
+        <input type="date" id="fieldDate">
+      </div>
+      <div class="field field-check">
+        <input type="checkbox" id="fieldShowTop">
+        <label style="margin:0;" for="fieldShowTop">トップページにも表示する（通常のお知らせ）</label>
+      </div>
+      <div class="field field-check">
+        <input type="checkbox" id="fieldUrgent">
+        <label style="margin:0;" for="fieldUrgent">トップページの目立つ位置にも表示する（休診など重要なお知らせ）</label>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin:-6px 0 0;">※トップページには最大3件まで表示されます。「目立つ位置」のお知らせが優先され、残りの枠を「通常表示」のお知らせで埋めます。</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="submitBtn" onclick="submitNotice()">保存する</button>
+        <button class="btn btn-outline" id="cancelEditBtn" style="display:none;" onclick="resetForm()">編集をやめる</button>
+      </div>
+    </div>
 
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="tel:042-645-8228">電話で問い合わせる</a>
-      <a class="btn btn-outline" href="access.html">アクセスを見る</a>
+    <div id="statusMsg" class="status-msg"></div>
+
+    <p class="section-title">現在のお知らせ一覧</p>
+    <div id="noticeAdminList">
+      <p style="font-size:13px; color:var(--text-muted);">読み込み中…</p>
+    </div>
+
+    <div class="admin-footer">
+      <button class="btn btn-outline btn-logout" onclick="logout()">ログアウト</button>
     </div>
   </div>
-</section>
+</div>
 
-<div class="notice-card" id="topNoticeCard"></div>
-
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">ご案内</span>
-      <h2>地域とともに、<span class="anniv-year">30</span>年目へ</h2>
-    </div>
-    <div class="lead-block">
-      <p>平成7年に開業し、皆様の支えにより<span class="anniv-year">30</span>年目に入ることができました。今後も大学病院等・基幹病院との連携（病診連携）、地域での他科専門医との連携（診診連携）をより充実させ、地域医療に更に力を入れてまいる所存です。</p>
-      <p>ご心配なこと、お気づきになったこと、疑問に思われることなどありましたら、どんなことでもお気軽にご指摘、ご相談ください。</p>
-    </div>
-  </div>
-</section>
-
-<section class="tint">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">サイト内メニュー</span>
-      <h2>ページから探す</h2>
-    </div>
-    <div class="quick-grid">
-      <a class="quick-card" href="about.html">
-        <span class="q-label">ABOUT</span>
-        <h3>ご案内</h3>
-        <p>診療科目・紹介先病院など</p>
-      </a>
-      <a class="quick-card" href="hours.html">
-        <span class="q-label">HOURS</span>
-        <h3>診療時間</h3>
-        <p>曜日ごとの診療時間を確認</p>
-      </a>
-      <a class="quick-card" href="staff.html">
-        <span class="q-label">GREETING</span>
-        <h3>院長ご挨拶</h3>
-        <p>院長紹介・資格</p>
-      </a>
-      <a class="quick-card" href="access.html">
-        <span class="q-label">ACCESS</span>
-        <h3>所在地</h3>
-        <p>駅からの行き方・地図</p>
-      </a>
-      <a class="quick-card" href="notice.html">
-        <span class="q-label">NOTICE</span>
-        <h3>お知らせ</h3>
-        <p>休診情報など最新のお知らせ</p>
-      </a>
-      <a class="quick-card" href="links.html">
-        <span class="q-label">LINKS</span>
-        <h3>リンク集</h3>
-        <p>関連団体・連携病院へのリンク</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <p class="brand-name">京王八王子駅前診療所</p>
-    <div class="foot-meta">
-      東京都八王子市明神町4-7-1　京王駅前ビル5階<br>
-      TEL：042-645-8228<br>
-      月火水金 9:00-13:00 / 16:00-18:00　土 9:00-13:00　休診：木・日・祝
-    </div>
-    <div class="foot-links">
-      <a href="about.html">ご案内</a>
-      <a href="hours.html">診療時間</a>
-      <a href="staff.html">院長ご挨拶</a>
-      <a href="access.html">所在地</a>
-      <a href="notice.html">お知らせ</a>
-      <a href="links.html">リンク集</a>
-      <a href="privacy.html">個人情報保護方針</a>
-    </div>
-    <p class="copyright">Copyright (C) 京王八王子駅前診療所. All Rights Reserved.</p>
-  </div>
-</footer>
-
-<script>const NOTICES_JSON_PATH = 'data/notices.json';</script>
-<script src="js/main.js"></script>
 <script>
-  fetch('data/notices.json?_=' + Date.now())
-    .then(res => res.json())
-    .then(notices => {
-      const card = document.getElementById('topNoticeCard');
-      if(!notices || notices.length === 0){ return; }
-      notices.sort((a,b) => new Date(b.date) - new Date(a.date));
-      const top = notices.find(n => n.urgent) || notices[0];
-      const div = document.createElement('div');
-      div.textContent = top.title;
-      const titleSafe = div.innerHTML;
-      div.textContent = top.body;
-      const bodySafe = div.innerHTML;
-      card.innerHTML = `
-        <a class="notice-box" href="notice.html">
-          <span class="notice-icon">!</span>
-          <div>
-            <h3>${titleSafe}</h3>
-            <p>${bodySafe}</p>
-          </div>
-        </a>`;
+  // ▼▼▼ Google Apps Script をデプロイ後、発行されたWebアプリURLに書き換えてください ▼▼▼
+  const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzgqf2Nvbsjk3s-VtN9Ywsd7hzt1K0guyikj1zihQJ96IrSN_O31bGzi0TfxyXy5wCt/exec';
+
+  const NOTICES_JSON_PATH = '../data/notices.json';
+  let sessionPassword = sessionStorage.getItem('admin_pw') || '';
+  let currentNotices = [];
+
+  function unlock(){
+    const pw = document.getElementById('passwordInput').value;
+    if(!pw){
+      showLockError('パスワードを入力してください。');
+      return;
+    }
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.disabled = true;
+    loginBtn.textContent = '確認中…';
+    showLockError('');
+
+    fetch(GAS_WEB_APP_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({ action: 'verify', password: pw })
     })
-    .catch(() => {});
+      .then(res => res.json())
+      .then(res => {
+        if(res.success){
+          sessionPassword = pw;
+          sessionStorage.setItem('admin_pw', pw);
+          document.getElementById('lockScreen').style.display = 'none';
+          document.getElementById('adminScreen').style.display = 'block';
+          clearStatus();
+          resetForm();
+          loadNotices();
+        } else if(res.error === 'invalid_password'){
+          showLockError('パスワードが正しくありません。');
+        } else {
+          showLockError('エラーが発生しました：' + (res.error || '不明なエラー') + '（GAS側の再デプロイが反映されていない可能性があります）');
+        }
+      })
+      .catch(() => {
+        showLockError('通信エラーが発生しました。時間をおいて再度お試しください。');
+      })
+      .finally(() => {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'ログイン';
+      });
+  }
+
+  function clearStatus(){
+    const el = document.getElementById('statusMsg');
+    el.textContent = '';
+    el.className = 'status-msg';
+  }
+
+  function logout(){
+    sessionPassword = '';
+    sessionStorage.removeItem('admin_pw');
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('lockError').textContent = '';
+    document.getElementById('lockError').classList.remove('show');
+    document.getElementById('adminScreen').style.display = 'none';
+    document.getElementById('lockScreen').style.display = 'block';
+    clearStatus();
+    resetForm();
+  }
+
+  // パスワード欄でEnterキーを押したらログイン実行
+  document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      unlock();
+    }
+  });
+
+  function showLockError(msg){
+    const el = document.getElementById('lockError');
+    el.textContent = msg;
+    if(msg){
+      el.classList.add('show');
+    } else {
+      el.classList.remove('show');
+    }
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+
+  function loadNotices(){
+    fetch(NOTICES_JSON_PATH + '?t=' + Date.now())
+      .then(res => res.json())
+      .then(list => { currentNotices = list || []; renderList(); })
+      .catch(() => {
+        document.getElementById('noticeAdminList').innerHTML =
+          '<p style="font-size:13px; color:var(--text-muted);">お知らせの読み込みに失敗しました。</p>';
+      });
+  }
+
+  function renderList(){
+    const el = document.getElementById('noticeAdminList');
+    const sorted = [...currentNotices].sort((a,b) => (a.date < b.date ? 1 : -1));
+    if(sorted.length === 0){
+      el.innerHTML = '<p style="font-size:13px; color:var(--text-muted);">お知らせはまだありません。</p>';
+      return;
+    }
+    el.innerHTML = sorted.map(n => `
+      <div class="list-item${n.urgent ? ' urgent' : ''}">
+        <div class="li-date">${escapeHtml(n.date)}${n.urgent ? ' <span class="li-badge urgent">トップ表示（重要）</span>' : (n.showTop ? ' <span class="li-badge">トップ表示</span>' : '')}</div>
+        <h4>${escapeHtml(n.title)}</h4>
+        <p>${escapeHtml(n.body)}</p>
+        <div class="li-actions">
+          <button class="edit" onclick="startEdit('${n.id}')">編集</button>
+          <button class="del" onclick="deleteNotice('${n.id}')">削除</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function startEdit(id){
+    const n = currentNotices.find(x => x.id === id);
+    if(!n) return;
+    document.getElementById('editId').value = n.id;
+    document.getElementById('fieldTitle').value = n.title;
+    document.getElementById('fieldBody').value = n.body;
+    document.getElementById('fieldDate').value = n.date;
+    document.getElementById('fieldUrgent').checked = !!n.urgent;
+    document.getElementById('fieldShowTop').checked = !!n.showTop;
+    document.getElementById('formTitle').textContent = '編集中：' + n.title;
+    document.getElementById('submitBtn').textContent = '更新する';
+    document.getElementById('cancelEditBtn').style.display = 'inline-flex';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function resetForm(){
+    document.getElementById('editId').value = '';
+    document.getElementById('fieldTitle').value = '';
+    document.getElementById('fieldBody').value = '';
+    document.getElementById('fieldDate').value = '';
+    document.getElementById('fieldUrgent').checked = false;
+    document.getElementById('fieldShowTop').checked = false;
+    document.getElementById('formTitle').textContent = '＋ 新規お知らせを追加';
+    document.getElementById('submitBtn').textContent = '保存する';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+  }
+
+  function showStatus(msg, ok){
+    const el = document.getElementById('statusMsg');
+    el.textContent = msg;
+    el.className = 'status-msg show ' + (ok ? 'ok' : 'err');
+  }
+
+  function callApi(payload){
+    return fetch(GAS_WEB_APP_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(payload)
+    }).then(res => res.json());
+  }
+
+  function submitNotice(){
+    const id = document.getElementById('editId').value;
+    const title = document.getElementById('fieldTitle').value.trim();
+    const body = document.getElementById('fieldBody').value.trim();
+    const date = document.getElementById('fieldDate').value;
+    const urgent = document.getElementById('fieldUrgent').checked;
+    const showTop = document.getElementById('fieldShowTop').checked;
+
+    if(!title || !body || !date){
+      showStatus('タイトル・本文・掲載日をすべて入力してください。', false);
+      return;
+    }
+
+    const payload = {
+      password: sessionPassword,
+      action: id ? 'update' : 'create',
+      id: id || undefined,
+      title, body, date, urgent, showTop
+    };
+
+    showStatus('保存しています…', true);
+    callApi(payload).then(res => {
+      if(res.success){
+        currentNotices = res.notices || currentNotices;
+        renderList();
+        resetForm();
+        showStatus('保存しました。公開サイトへの反映まで1分程度かかります。', true);
+      } else {
+        handleApiError(res);
+      }
+    }).catch(() => showStatus('通信エラーが発生しました。時間をおいて再度お試しください。', false));
+  }
+
+  function deleteNotice(id){
+    const n = currentNotices.find(x => x.id === id);
+    if(!n) return;
+    if(!confirm('「' + n.title + '」を削除します。よろしいですか？この操作は取り消せません。')) return;
+
+    showStatus('削除しています…', true);
+    callApi({password: sessionPassword, action: 'delete', id}).then(res => {
+      if(res.success){
+        currentNotices = res.notices || currentNotices;
+        renderList();
+        showStatus('削除しました。公開サイトへの反映まで1分程度かかります。', true);
+      } else {
+        handleApiError(res);
+      }
+    }).catch(() => showStatus('通信エラーが発生しました。時間をおいて再度お試しください。', false));
+  }
+
+  function handleApiError(res){
+    if(res.error === 'invalid_password'){
+      sessionStorage.removeItem('admin_pw');
+      showStatus('パスワードが正しくありません。再度ログインしてください。', false);
+      document.getElementById('adminScreen').style.display = 'none';
+      document.getElementById('lockScreen').style.display = 'block';
+    } else {
+      showStatus('エラーが発生しました：' + (res.error || '不明なエラー'), false);
+    }
+  }
+
+  if(sessionPassword){
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    loadNotices();
+  }
 </script>
 </body>
 </html>

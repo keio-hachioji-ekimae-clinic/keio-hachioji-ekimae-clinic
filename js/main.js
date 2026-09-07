@@ -42,24 +42,29 @@ function renderNoticeList(list, el){
   `).join('');
 }
 
-// トップページの休診お知らせバナー（index.html の #homeNoticeCard）
-// urgent:true のうち最新のものを1件だけ表示。なければバナーごと非表示。
+// トップページの休診お知らせバナー（index.html の #topNoticeCard）
+// urgent:true のお知らせを優先して表示し、残りの枠は showTop:true の通常お知らせで埋める。
+// 合計最大3件まで表示。対象が1件もなければバナーごと非表示。
 function renderHomeNotice(list, el){
   const sorted = sortNoticesDesc(list);
-  const target = sorted.find(n => n.urgent);
-  if(!target){
+  const urgentOnes = sorted.filter(n => n.urgent);
+  const topOnes = sorted.filter(n => !n.urgent && n.showTop);
+  const combined = [...urgentOnes, ...topOnes].slice(0, 3);
+
+  if(combined.length === 0){
     el.style.display = 'none';
     return;
   }
-  el.innerHTML = `
-    <a class="notice-box" href="notice.html">
-      <span class="notice-icon">!</span>
+
+  el.innerHTML = `<div class="notice-list-home">${combined.map(n => `
+    <a class="notice-box${n.urgent ? '' : ' plain'}" href="notice.html">
+      ${n.urgent ? '<span class="notice-icon">!</span>' : ''}
       <div>
-        <h3>${escapeHtml(target.title)}</h3>
-        <p>${escapeHtml(target.body)}</p>
+        <h3>${escapeHtml(n.title)}</h3>
+        <p>${escapeHtml(n.body)}</p>
       </div>
     </a>
-  `;
+  `).join('')}</div>`;
 }
 
 // ハンバーガーメニュー
