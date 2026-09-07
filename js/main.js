@@ -46,7 +46,7 @@ function renderNoticeList(list, el){
 // urgent:true のうち最新のものを1件だけ表示。なければバナーごと非表示。
 function renderHomeNotice(list, el){
   const sorted = sortNoticesDesc(list);
-  const target = sorted.find(n => n.urgent) || sorted[0];
+  const target = sorted.find(n => n.urgent);
   if(!target){
     el.style.display = 'none';
     return;
