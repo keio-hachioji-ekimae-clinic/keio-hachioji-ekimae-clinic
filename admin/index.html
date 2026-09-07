@@ -288,6 +288,21 @@
     }).then(res => res.json());
   }
 
+  function delay(ms){
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // GitHub側の書き込み直後は、ごく短時間だけ最新内容の読み取りに反映ラグが生じることがある。
+  // update/deleteでnot_foundが返った場合に限り、少し待って自動で1回だけ再試行する。
+  async function callApiWithRetry(payload){
+    let res = await callApi(payload);
+    if(!res.success && res.error === 'not_found'){
+      await delay(1800);
+      res = await callApi(payload);
+    }
+    return res;
+  }
+
   function submitNotice(){
     const id = document.getElementById('editId').value;
     const title = document.getElementById('fieldTitle').value.trim();
@@ -309,7 +324,7 @@
     };
 
     showStatus('保存しています…', true);
-    callApi(payload).then(res => {
+    callApiWithRetry(payload).then(res => {
       if(res.success){
         currentNotices = res.notices || currentNotices;
         renderList();
@@ -327,7 +342,7 @@
     if(!confirm('「' + n.title + '」を削除します。よろしいですか？この操作は取り消せません。')) return;
 
     showStatus('削除しています…', true);
-    callApi({password: sessionPassword, action: 'delete', id}).then(res => {
+    callApiWithRetry({password: sessionPassword, action: 'delete', id}).then(res => {
       if(res.success){
         currentNotices = res.notices || currentNotices;
         renderList();
@@ -344,6 +359,8 @@
       showStatus('パスワードが正しくありません。再度ログインしてください。', false);
       document.getElementById('adminScreen').style.display = 'none';
       document.getElementById('lockScreen').style.display = 'block';
+    } else if(res.error === 'not_found'){
+      showStatus('反映に時間がかかっているようです。少し待ってから画面を再読み込みし、もう一度お試しください。', false);
     } else {
       showStatus('エラーが発生しました：' + (res.error || '不明なエラー'), false);
     }
