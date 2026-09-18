@@ -1,14 +1,25 @@
 // お知らせデータ(data/notices.json)を取得する共通関数
 // 各ページ側で <script>const NOTICES_JSON_PATH='data/notices.json';</script> のように
 // パスを指定してから main.js を読み込む想定（ルート直下のページと admin/ 配下でパスが異なるため）
-function fetchNotices(){
+//
+// GitHub Pagesの配信網（CDN）は、更新直後しばらくサーバーごとに反映タイミングがずれることがある。
+// 1回だけの取得だと古い内容に当たる可能性があるため、間隔を空けて2回取得し、
+// より新しい可能性が高い2回目の結果を採用することで、当たる確率を下げる。
+async function fetchNotices(){
   const path = (typeof NOTICES_JSON_PATH !== 'undefined') ? NOTICES_JSON_PATH : 'data/notices.json';
-  return fetch(path + '?t=' + Date.now(), { cache: 'no-store' })
+  const doFetch = () => fetch(path + '?t=' + Date.now() + Math.random(), { cache: 'no-store' })
     .then(res => {
       if(!res.ok) throw new Error('notices.json fetch failed');
       return res.json();
-    })
-    .catch(() => []);
+    });
+
+  try {
+    await doFetch();
+    await new Promise(resolve => setTimeout(resolve, 600));
+    return await doFetch();
+  } catch (e) {
+    return [];
+  }
 }
 
 function sortNoticesDesc(list){
