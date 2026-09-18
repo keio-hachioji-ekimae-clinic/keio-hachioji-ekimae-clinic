@@ -218,7 +218,7 @@
   }
 
   function loadNotices(){
-    fetch(NOTICES_JSON_PATH + '?t=' + Date.now())
+    fetch(NOTICES_JSON_PATH + '?t=' + Date.now(), { cache: 'no-store' })
       .then(res => res.json())
       .then(list => { currentNotices = list || []; renderList(); })
       .catch(() => {

@@ -3,7 +3,7 @@
 // パスを指定してから main.js を読み込む想定（ルート直下のページと admin/ 配下でパスが異なるため）
 function fetchNotices(){
   const path = (typeof NOTICES_JSON_PATH !== 'undefined') ? NOTICES_JSON_PATH : 'data/notices.json';
-  return fetch(path + '?t=' + Date.now())
+  return fetch(path + '?t=' + Date.now(), { cache: 'no-store' })
     .then(res => {
       if(!res.ok) throw new Error('notices.json fetch failed');
       return res.json();
