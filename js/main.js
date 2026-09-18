@@ -5,21 +5,14 @@
 // GitHub Pagesの配信網（CDN）は、更新直後しばらくサーバーごとに反映タイミングがずれることがある。
 // 1回だけの取得だと古い内容に当たる可能性があるため、間隔を空けて2回取得し、
 // より新しい可能性が高い2回目の結果を採用することで、当たる確率を下げる。
-async function fetchNotices(){
+function fetchNotices(){
   const path = (typeof NOTICES_JSON_PATH !== 'undefined') ? NOTICES_JSON_PATH : 'data/notices.json';
-  const doFetch = () => fetch(path + '?t=' + Date.now() + Math.random(), { cache: 'no-store' })
+  return fetch(path + '?t=' + Date.now(), { cache: 'no-store' })
     .then(res => {
       if(!res.ok) throw new Error('notices.json fetch failed');
       return res.json();
-    });
-
-  try {
-    await doFetch();
-    await new Promise(resolve => setTimeout(resolve, 600));
-    return await doFetch();
-  } catch (e) {
-    return [];
-  }
+    })
+    .catch(() => []);
 }
 
 function sortNoticesDesc(list){
