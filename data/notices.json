@@ -36,5 +36,13 @@
     "body": "本文テスト",
     "urgent": false,
     "showTop": true
+  },
+  {
+    "id": "notice_1789791275972",
+    "date": "2026-09-19",
+    "title": "タイトルテスト",
+    "body": "本文テスト",
+    "urgent": false,
+    "showTop": true
   }
 ]
